@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeConsistent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+        .cozy-bg {
+            background-image: url('asstes/BG.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+
+
+
+
+
+
+
+
+      
+        .cozy-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(31, 4, 59, 0.132),
+                    rgba(34, 7, 77, 0.15));
+            pointer-events: none;
+        }
+
+        .balloon {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 80px;
+            height: auto;
+        }
+
+        .balloon:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.2);
+        }
+
+        .balloon.selected {
+            filter: drop-shadow(0 0 15px rgba(255, 220, 180, 0.9));
+            transform: translateY(-5px);
+        }
+
+        /* Timer container styling to match design */
+        .timer-container {
+            background: rgb(255, 255, 255);
+            border-style:groove;
+            border-color: #04000887;
+            border-width: 2px;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;;
+            gap: 4px;
+        }
+
+        .digit {
+            background: #f8f8f8;
+            border-radius: 4px;
+            width: 60px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .digit.pink {
+            background: #e8a9b1d4;
+        }
+
+        .digit.gray {
+            background: #4a3f5a;
+        }
+
+        /* Completion message styling */
+
+
+
+
+
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="h-screen w-screen overflow-hidden">
+
+    <div class="cozy-bg h-full w-full relative">
+        <!-- Start Screen -->
+
+        <div id="start-screen" class="h-full w-full flex items-center justify-center">
+            <div class="relative w-full h-full">
+                <!-- Balloons -->
+                <img src="asstes/MinutesButton.png" class="balloon absolute left-[10%] top-[3%] w-32">
+                <img src="asstes/5button.png" class="balloon absolute left-[10%] top-[30%] w-32" data-minutes="5">
+                <img src="asstes/10button.png" class="balloon absolute left-[10%] top-[50%] w-40" data-minutes="10">
+                <img src="asstes/15button.png" class="balloon absolute left-[10%] top-[68%] w-36" data-minutes="15">
+                <img src="asstes/25button.png" class="balloon absolute left-[10%] top-[7%] w-32" data-minutes="25">
+                <img src="asstes/BeConsistent.png" class="balloon absolute right-[10%] top-[4%] w-60">
+                <!-- Start Button -->
+                <button id="start-btn" class="absolute right-20 bottom-14">
+                    <img src="asstes/startButton.png" class="w-56 hover:scale-105 transition-transform">
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Timer Screen -->
+        <div id="timer-screen" class="hidden h-full w-full flex items-center justify-center">
+            <button id="stop-btn" class="absolute right-20 bottom-1 transform -translate-y-1/2">
+                <img src="asstes/stopButton.png" class="w-28 hover:scale-105 transition-transform">
+            </button>
+
+            <div class="timer-container">
+                <div id="minutes-tens" class="digit pink">0</div>
+                <div id="minutes-ones" class="digit pink">0</div>
+                <div id="seconds-tens" class="digit gray">0</div>
+                <div id="seconds-ones" class="digit gray">0</div>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+
+        <div id="completion-screen" class="hidden h-full w-full flex flex-col items-center justify-center">
+            <div class="completion-message"> <img src="asstes/TakeABreakButton.png"
+                    class="w-148 hover:scale-105 transition-transform"></div>
+                    <button id="completion-stop-btn" class="absolute right-20 bottom-1 transform -translate-y-1/2">
+                        <img src="asstes/stopButton.png" class="w-32 hover:scale-105 transition-transform">
+                    </button>
+        </div>
+    </div>
+
+
+    <script src="app.js"></script>
+    <audio id="timer-complete" src="asstes/soft-piano-inspiration_medium-1-399918.mp3"></audio>
+</body>
+
+</html>
