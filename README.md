@@ -1,2 +1,2 @@
-# BeConsistent
-Cozy pomodoro app
+# Be Consistent
+pomodoro app
